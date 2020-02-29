@@ -1,0 +1,70 @@
+plugins {
+    id "org.sonarqube" version "2.7"
+    id "com.bmuschko.docker-remote-api" version "4.10.0" apply(false)
+    id "org.ajoberstar.grgit" version "3.0.0"
+    id "org.springframework.boot" version "2.1.8.RELEASE" apply false
+    id "io.spring.dependency-management" version "1.0.8.RELEASE" apply false
+}
+
+repositories {
+    mavenCentral()
+}
+
+subprojects {
+    apply plugin: 'java' // All sub-projects are currently publishing jar files.
+    apply plugin: 'maven-publish'
+    apply plugin: 'io.spring.dependency-management'
+
+    dependencyManagement {
+        imports {
+            mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
+        }
+    }
+
+    group 'com.learning.rainbow'
+    version = "${grgit.head().id}"
+    sourceCompatibility = JavaVersion.VERSION_1_8
+
+    repositories {
+        mavenCentral()
+    }
+
+    configurations {
+        testImplementation {
+            exclude group: 'junit', module: 'junit'
+        }
+        all {
+            // Excluding spring default logging implementation to include log4j2
+            exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+        }
+    }
+
+    dependencies {
+        compileOnly 'org.projectlombok:lombok'
+        implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+        annotationProcessor 'org.projectlombok:lombok'
+        testCompile 'org.projectlombok:lombok'
+        testAnnotationProcessor 'org.projectlombok:lombok'
+        testImplementation 'org.junit.jupiter:junit-jupiter'
+        testImplementation 'org.mockito:mockito-core'
+        testImplementation 'com.google.code.gson:gson'
+        testImplementation "org.assertj:assertj-core"
+    }
+
+    test {
+        useJUnitPlatform()
+        testLogging {
+            events "passed", "skipped", "failed"
+        }
+    }
+}
+
+// Builds locally without bringing up localstack container
+task buildLocal {
+    dependsOn subprojects.build
+}
+
+// Placeholder task to specify global pre-build and post-build dependencies like localstack container
+task build {
+    dependsOn buildLocal
+}
