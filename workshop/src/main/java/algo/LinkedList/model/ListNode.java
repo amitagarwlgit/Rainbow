@@ -1,6 +1,6 @@
 package algo.LinkedList.model;
 
-public class ListNode {
+public class ListNode extends Object {
 
   public int val;
   public ListNode next;

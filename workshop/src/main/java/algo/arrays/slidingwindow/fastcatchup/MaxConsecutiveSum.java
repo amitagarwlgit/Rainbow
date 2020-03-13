@@ -1,4 +1,4 @@
-package algo.problems.slidingwindow.fastcatchup;
+package algo.arrays.slidingwindow.fastcatchup;
 
 /* Given an integer array nums, find the contiguous subarray (containing at least one number.
  * which has the largest sum and return its sum.
@@ -14,7 +14,7 @@ package algo.problems.slidingwindow.fastcatchup;
  */
 public class MaxConsecutiveSum {
 
-    public int perform(int[] input){
-        return 0;
-    }
+  public int perform(int[] input) {
+    return 0;
+  }
 }

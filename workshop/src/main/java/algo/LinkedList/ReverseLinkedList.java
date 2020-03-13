@@ -11,6 +11,18 @@ import algo.LinkedList.model.ListNode;
 
 public class ReverseLinkedList {
 
+  public ListNode reverseListRecursion(ListNode head) {
+    return recurse(head, null);
+  }
+
+  private ListNode recurse(ListNode head, ListNode state) {
+    if (head == null) return state;
+    ListNode curr = head.next;
+    head.next = state;
+    state = head;
+    return recurse(curr, state);
+  }
+
   public ListNode reverseListIterative(ListNode head) {
     ListNode prev = null;
     ListNode curr = head;
@@ -21,15 +33,5 @@ public class ReverseLinkedList {
       curr = nextTemp;
     }
     return prev;
-  }
-
-  public ListNode reverseListRecursion(ListNode head) {
-
-      if (head == null)
-          return null;
-
-
-
-    return null;
   }
 }

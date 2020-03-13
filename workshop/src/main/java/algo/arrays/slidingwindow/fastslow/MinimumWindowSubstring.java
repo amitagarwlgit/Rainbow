@@ -1,4 +1,4 @@
-package algo.problems.slidingwindow.fastslow;
+package algo.arrays.slidingwindow.fastslow;
 
 import java.util.HashMap;
 
