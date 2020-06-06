@@ -20,13 +20,12 @@ import algo.LinkedList.model.ListNode;
 public class PalindromeLinkedList {
 
   public boolean isPalindrome(ListNode head) {
-    ListNode middleNode = middle(head);
-    ListNode revert = new ReverseLinkedList().reverseListIterative(middleNode);
+    ListNode reverse = reverse(middle(head));
     Boolean isPalindrome = true;
-    while (revert != null) {
-      if (head.val != revert.val) isPalindrome = false;
+    while (reverse != null) {
+      if (head.val != reverse.val) isPalindrome = false;
       head = head.next;
-      revert = revert.next;
+      reverse = reverse.next;
     }
     return isPalindrome;
   }
@@ -34,8 +33,6 @@ public class PalindromeLinkedList {
   private ListNode middle(ListNode head) {
     ListNode slow = head;
     ListNode fast = head;
-
-    // 1->2->3->4->5
     while (fast != null && fast.next != null) {
       slow = slow.next;
       fast = fast.next.next;
@@ -44,6 +41,15 @@ public class PalindromeLinkedList {
   }
 
   private ListNode reverse(ListNode head) {
-    return head;
+    ListNode curr = head;
+    ListNode prev = null;
+
+    while (curr != null) {
+      ListNode temp = curr.next;
+      curr.next = prev;
+      prev = curr;
+      curr = temp;
+    }
+    return prev;
   }
 }
