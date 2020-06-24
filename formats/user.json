@@ -1,0 +1,7 @@
+{
+  "name":"amit agarwal",
+  "age": 33,
+  "hobbies":["cricket","chess","music"],
+  "birthyear": 1987,
+  "isAdult":true
+}

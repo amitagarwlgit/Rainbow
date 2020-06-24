@@ -1,0 +1,61 @@
+version: '3.0'
+networks:
+  rainbow-network:
+
+services:
+  zookeeper:
+    image: zookeeper:3.4.11
+    container_name: zookeeper
+    environment:
+      ZOO_MY_ID: 1
+    ports:
+      - "2181:2181"
+    volumes:
+      - /rainbow-docker-data/zookeeper/data:/data
+      - /rainbow-docker-data/zookeeper/datalog:/datalog
+    networks:
+      rainbow-network:
+        aliases:
+          - zookeeper.rainbow.biz
+  kafka1:
+    image: wurstmeister/kafka:2.12-2.4.1
+    environment:
+      - KAFKA_BROKER_ID=0
+      - KAFKA_PORT=9092
+      - KAFKA_ADVERTISED_HOST_NAME=kafka1.rainbow.biz
+      - KAFKA_ADVERTISED_PORT=9092
+      - ZOOKEEPER_IP=zookeeper.rainbow.biz
+    ports:
+      - "9092:9092"
+    links:
+      - zookeeper
+    depends_on:
+      - zookeeper
+    volumes:
+      - /rainbow-docker-data/kafka1/data:/data
+      - /rainbow-docker-data/kafka1/logs:/logs
+    networks:
+      rainbow-network:
+        aliases:
+          - kafka1.rainbow.biz
+  kafka2:
+    image: wurstmeister/kafka:2.12-2.4.1
+    environment:
+      - KAFKA_BROKER_ID=1
+      - KAFKA_PORT=9093
+      - KAFKA_ADVERTISED_HOST_NAME=kafka2.rainbow.biz
+      - KAFKA_ADVERTISED_PORT=9093
+      - ZOOKEEPER_IP=zookeeper.rainbow.biz
+    ports:
+      - "9093:9093"
+    links:
+      - zookeeper
+    depends_on:
+      - zookeeper
+    volumes:
+      - /rainbow-docker-data/kafka2/data:/data
+      - /rainbow-docker-data/kafka2/logs:/logs
+    networks:
+      rainbow-network:
+        aliases:
+          - kafka2.rainbow.biz
