@@ -1,0 +1,2 @@
+cat file1 | awk '{$3=$3+$4; $4=""; print $0}'
+cat file1 | awk '{last=NF; secondLast=NF-1; $secondLast=$secondLast+$last; $last=""; print $0}'
