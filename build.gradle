@@ -45,3 +45,11 @@ subprojects {
         }
     }
 }
+
+task buildLocal {
+    dependsOn subprojects.build
+}
+
+task build {
+    dependsOn buildLocal
+}
