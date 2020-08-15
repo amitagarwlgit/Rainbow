@@ -10,24 +10,16 @@ import org.junit.jupiter.api.Test;
 
 public class SlidingWindowTest {
 
-  // Fast, Slow
-  @Disabled
-  @Test
-  public void testMinimumWindowSubstring() {
-    String input = "ADOBECODEBANC";
-    MinimumWindowSubstring minimumWindowSubstring = new MinimumWindowSubstring();
-    String result = minimumWindowSubstring.perform(input);
-    Assertions.assertEquals(result, "BANC");
-  }
-
   // Fast, Lagging
   @Disabled
   @Test
   public void testHouseRobber() {
     int[] input = {5,3,4,11,2};
     HouseRobber houseRobber = new HouseRobber();
-    int result = houseRobber.perform(input);
+    int result = houseRobber.performIterative(input);
+    int result2 = houseRobber.performRecursion(input);
     Assertions.assertEquals(result, 16);
+    Assertions.assertEquals(result2, 16);
   }
 
   // Fast, Catchup
