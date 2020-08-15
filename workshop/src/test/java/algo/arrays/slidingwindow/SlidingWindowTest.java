@@ -1,8 +1,7 @@
 package algo.arrays.slidingwindow;
 
 import algo.arrays.slidingwindow.fastcatchup.MaxConsecutiveSum;
-import algo.arrays.slidingwindow.fastlagging.HouseRobber;
-import algo.arrays.slidingwindow.fastslow.MinimumWindowSubstring;
+import algo.dp.HouseRobber;
 import algo.arrays.slidingwindow.frontback.TrappingRainWater;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
